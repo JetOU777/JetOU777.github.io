@@ -74,7 +74,8 @@ function extentionWins() {
 function extentionLoses() {
   const remove_scrap = list.replace(scrap_regex, "")
   const remove_vs = remove_scrap.replace(vs_regex, " ")
-  const extention_players = remove_vs.match(extention_players_regex).join("\r\n")
+  const remove_unfinished_extention_games = remove_vs.replace(/^((?!\[u\]).)*$/gim , "");
+  const extention_players = remove_unfinished_extention_games .match(extention_players_regex).join("\r\n")
   const extention_winners = extention_players.replace(extention_winners_regex, "")
   const remove_extention_winner_brackets = extention_winners.replace(extention_winners_brackets_regex, "")
   const remove_extra_spaces = remove_extention_winner_brackets.replace(/^ +/gm, "")
