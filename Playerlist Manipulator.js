@@ -34,9 +34,7 @@ const scrap_regex = /\[User=\d+\]|\[\/User\]|.+ Bye \d+|Bye \d+ .+/gim
 const winners_regex = /(\[B\](.+)\[\/B\])|(\[B\](.+\n.+)\[\/B\])/gim
 const winners_bbcode_regex = /\[b\]|\[\/b\]/gim
 const line_break_remover_regex = /\n\s*\n/gm
-const line_break_regex = /\r\n/gm
 const extention_players_regex = /\(.+\)/g
-const unfinished_extention_games = /^((?!\().)*$/gm
 const extention_winners_regex = /\[U\](.+)\[\/U\]/gm
 const extention_winners_brackets_regex = /\(|\)/gim
 const extention_winners_bbcode = /\[u\]|\[b\]|\[\/u\]|\[\/b\]/gim
@@ -109,8 +107,6 @@ function resetPlayerlist() {
           </div>
           <br />
       </form>
-      <p id="list" style="display: none;">${list}</p>
-      <p id="check" style="display: none;">od</p>
   </div>
   `
 }
