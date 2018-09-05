@@ -8,10 +8,8 @@ else {
   `
   <div id="player-container">
       <form name="player">
-          <h3 class="display-4">Insert playerlist here...</h3>
-          <br />
           <div class="form-group text-center">
-              <textarea class="form-control" id="playerlist" rows="15">${list}</textarea>
+              <textarea class="form-control" id="playerlist" rows="20">${list}</textarea>
               <br />
               <button type="button" class="btn btn-primary" onclick="showWinners()">Show Winners</button>
               <button type="button" class="btn btn-primary" onclick="showLosers()">Show Losers</button>
