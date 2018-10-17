@@ -1,7 +1,7 @@
 "use strict";
 function addPlayerlist() {
     window.list = document.getElementById("playerlist").value;
-    if (document.getElementById("playerlist") === "") {
+    if (document.getElementById("playerlist").value === "") {
         alert("Please add a playerlist in the textarea!");
     } else {                    
         document.body.innerHTML =
@@ -41,56 +41,56 @@ const extension_winners_parenthesis_regex = /\(|\)/gim;
 const winners_bbcode_regex = /\[u\]|\[b\]|\[\/u\]|\[\/b\]/gim;
 
 function showWinners() {
-    const remove_scrap = list.replace(scrap_regex, "");
-    const remove_vs = remove_scrap.replace(vs_regex, " ");
-    const show_winners = remove_vs.match(winners_regex).join("\r\n");
-    const remove_bbcode = show_winners.replace(winners_bbcode_regex, "");
+    let remove_scrap = list.replace(scrap_regex, "");
+    let remove_vs = remove_scrap.replace(vs_regex, " ");
+    let show_winners = remove_vs.match(winners_regex).join("\r\n");
+    let remove_bbcode = show_winners.replace(winners_bbcode_regex, "");
     playerlistID.value = remove_bbcode;
 }
 
 function showLosers() {
-    const remove_scrap = list.replace(scrap_regex, "");
-    const remove_extension_games = remove_scrap.replace(/\(.+\svs\s.+\).+|.+\(.+\svs\s.+\)/gm, "");
-    const remove_vs = remove_extension_games.replace(vs_regex, "");
-    const remove_unfinished_games = remove_vs.replace(/^((?!\[).)*$/gm, "");
-    const show_losers = remove_unfinished_games.replace(winners_regex, "\r\n");
-    const remove_linebreak = show_losers.replace(line_break_remover_regex, "\n");
-    const remove_extra_spaces = remove_linebreak.replace(/^\s+/gm, "");
+    let remove_scrap = list.replace(scrap_regex, "");
+    let remove_extension_games = remove_scrap.replace(/\(.+\svs\s.+\).+|.+\(.+\svs\s.+\)/gm, "");
+    let remove_vs = remove_extension_games.replace(vs_regex, "");
+    let remove_unfinished_games = remove_vs.replace(/^((?!\[).)*$/gm, "");
+    let show_losers = remove_unfinished_games.replace(winners_regex, "\r\n");
+    let remove_linebreak = show_losers.replace(line_break_remover_regex, "\n");
+    let remove_extra_spaces = remove_linebreak.replace(/^\s+/gm, "");
     playerlistID.value = remove_extra_spaces;
 }
 
 function extensionWins() {
-    const remove_scrap = list.replace(scrap_regex, "");
-    const extension_players = remove_scrap.match(extension_players_regex).join("\r\n");
-    const extension_winners = extension_players.match(extension_winners_regex).join("");
-    const remove_extension_winner_parenthesis = extension_winners.replace(extension_winners_parenthesis_regex, "");
-    const remove_extension_winner_bbcode = remove_extension_winner_parenthesis.replace(winners_bbcode_regex, "\r\n");
-    const remove_linebreaks = remove_extension_winner_bbcode.replace(line_break_remover_regex, "\n");
+    let remove_scrap = list.replace(scrap_regex, "");
+    let extension_players = remove_scrap.match(extension_players_regex).join("\r\n");
+    let extension_winners = extension_players.match(extension_winners_regex).join("");
+    let remove_extension_winner_parenthesis = extension_winners.replace(extension_winners_parenthesis_regex, "");
+    let remove_extension_winner_bbcode = remove_extension_winner_parenthesis.replace(winners_bbcode_regex, "\r\n");
+    let remove_linebreaks = remove_extension_winner_bbcode.replace(line_break_remover_regex, "\n");
     playerlistID.value = remove_linebreaks;
 }
 
 function extensionLoses() {
-    const remove_scrap = list.replace(scrap_regex, "");
-    const extension_players = remove_scrap.match(extension_players_regex).join("\r\n");
-    const remove_vs = extension_players.replace(vs_regex, "");
-    const extension_winners = remove_vs.replace(extension_winners_regex, "");
-    const remove_extension_winner_parenthesis = extension_winners.replace(extension_winners_parenthesis_regex, "");
-    const remove_extension_winner_bbcode = remove_extension_winner_parenthesis.replace(winners_bbcode_regex, "");
-    const remove_extra_spaces = remove_extension_winner_bbcode.replace(/^\s+/gm, "");
+    let remove_scrap = list.replace(scrap_regex, "");
+    let extension_players = remove_scrap.match(extension_players_regex).join("\r\n");
+    let remove_vs = extension_players.replace(vs_regex, "");
+    let extension_winners = remove_vs.replace(extension_winners_regex, "");
+    let remove_extension_winner_parenthesis = extension_winners.replace(extension_winners_parenthesis_regex, "");
+    let remove_extension_winner_bbcode = remove_extension_winner_parenthesis.replace(winners_bbcode_regex, "");
+    let remove_extra_spaces = remove_extension_winner_bbcode.replace(/^\s+/gm, "");
     playerlistID.value = remove_extra_spaces;
 }
 
 function unplayedGames() {
-    const remove_scrap = list.replace(scrap_regex, "");
-    const remove_unfinished_games = remove_scrap.match(/^((?!\[).)*$/gm).join("\r\n");
+    let remove_scrap = list.replace(scrap_regex, "");
+    let remove_unfinished_games = remove_scrap.match(/^((?!\[).)*$/gm).join("\r\n");
     playerlistID.value = remove_unfinished_games;
 }
 
 function byeWins() {
-    const lines_with_byes = list.match(/.+\sBye\s\d+|Bye\s\d+\s.+/gim).join("\r\n");
-    const remove_byes = lines_with_byes.replace(/Bye\s\d+/gim, "");
-    const remove_vs = remove_byes.replace(vs_regex, "");
-    const remove_bbcode = remove_vs.replace(winners_bbcode_regex, "");
+    let lines_with_byes = list.match(/.+\sBye\s\d+|Bye\s\d+\s.+/gim).join("\r\n");
+    let remove_byes = lines_with_byes.replace(/Bye\s\d+/gim, "");
+    let remove_vs = remove_byes.replace(vs_regex, "");
+    let remove_bbcode = remove_vs.replace(winners_bbcode_regex, "");
     playerlistID.value = remove_bbcode;
 }
 
