@@ -3,7 +3,7 @@ function addPlayerlist() {
     window.list = document.getElementById("playerlist").value;
     if (document.getElementById("playerlist").value === "") {
         alert("Please add a playerlist in the textarea!");
-    } else {                    
+    } else {
         document.body.innerHTML =
         `
         <div id="player-container">
