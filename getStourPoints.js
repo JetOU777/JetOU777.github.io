@@ -31,16 +31,16 @@ function count(array_elements) {
                     output += `${current} recieved ${cnt + 1} points<br />`; 
                     break;
                 case 6:
-                    output += `${current} recieved ${cnt + 2} points<br />`; 
+                    output += `${current} recieved ${cnt + 1} points<br />`; 
                     break;
                 case 7:
-                    output += `${current} recieved ${cnt + 3} points<br />`; 
+                    output += `${current} recieved ${cnt + 2} points<br />`; 
                     break;
                 case 8:
-                    output += `${current} recieved ${cnt + 4} points<br />`; 
+                    output += `${current} recieved ${cnt + 3} points<br />`; 
                     break;
                 case 9:
-                    output += `${current} recieved ${cnt + 5} points<br />`; 
+                    output += `${current} recieved ${cnt + 4} points<br />`; 
                     break;
             }
             current = array_elements[i];
