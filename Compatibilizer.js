@@ -9,4 +9,5 @@ function Compatibilize() {
         (!/Bye #\d+/.test(p2) ? output.push(p2) : '');
     }
     document.getElementById("playerlist").value = output.join('\n');
+    document.getElementById("lines").innerHTML = `${output.length} lines`;
 }
