@@ -1,5 +1,5 @@
 "use strict";
-function Compatibilizer() {
+function Compatibilize() {
     let playerlist = document.getElementById("playerlist").value;
     let output = [];
     for (let matchup of playerlist.split('\n').map(x => x.split(' VS '))) {
