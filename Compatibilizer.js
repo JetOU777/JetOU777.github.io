@@ -3,7 +3,7 @@ function Compatibilize() {
     let playerlist = document.getElementById("playerlist").value;
     let output = [];
     for (let matchup of playerlist.split('\n').map(x => x.split(' VS '))) {
-        if (!matchup || matchup === '\n') continue;
+        if (matchup.length < 2) continue;
         const [p1, p2] = matchup;
         output.push(p1, p2);
     }
