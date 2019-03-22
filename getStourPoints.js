@@ -1,49 +1,45 @@
 function Compatibilizer(playerlist) {
-    let remove_round = playerlist.replace(/Round\s\d|Finals/g, '');
-    let remove_vs = remove_round.replace(/\svs\.\s/g, '\n');
-    let remove_extra_spaces = remove_vs.replace(/^\s+/gm, '');
-    let remove_byes = remove_extra_spaces.replace(/Bye\s#\d+/g, '');
-    let remove_extra_linebreaks = remove_byes.replace(/\n\s*\n/gm,'\n');
-	return remove_extra_linebreaks.split('\n');
+    let output = [];
+    for (let matchup of playerlist.split('\n').map(x => x.split(' vs. '))) {
+        if (matchup.length < 2) continue;
+        const [p1, p2] = matchup;
+        output.push(p1, p2);
+    }
+	return output;
 }
 
-function findDuplicates() {
-	const list = document.getElementById('list').value;
-    let output = `${count(Compatibilizer(`${list}`))}`;
-    document.write(output);	
-}
-
-function count(array_elements) {
-    array_elements.sort();
+function count(players) {
+    players.sort();
 	let output = '';
-    let current = null;
-    let cnt = 0;
-    for (let i = 0; i <= array_elements.length; i++) {
-        if (array_elements[i] != current) {
+    let current;
+    let cnt;
+    for (let player of players) {
+        if (player != current) {
+            // TODO: Support RR finals, and adding 2 points to winner.
             switch (cnt) {
                 case 2: case 3: 
-                    output += `${current} received ${cnt - 1} points<br />`; 
+                    output += `<p>${current}: ${cnt - 1} points</p>`; 
                     break;
                 case 4:
-                    output += `${current} received ${cnt - 1} points<br />`; 
+                    output += `<p>${current}: ${cnt - 1} points</p>`; 
                     break;
                 case 5:
-                    output += `${current} received ${cnt + 1} points<br />`; 
+                    output += `<p>${current}: ${cnt + 1} points</p>`; 
                     break;
                 case 6:
-                    output += `${current} received ${cnt + 1} points<br />`; 
+                    output += `<p>${current}: ${cnt + 1} points</p>`; 
                     break;
                 case 7:
-                    output += `${current} received ${cnt + 2} points<br />`; 
+                    output += `<p>${current}: ${cnt + 2} points</p>`; 
                     break;
                 case 8:
-                    output += `${current} received ${cnt + 3} points<br />`; 
+                    output += `<p>${current}: ${cnt + 3} points</p>`; 
                     break;
                 case 9:
-                    output += `${current} received ${cnt + 4} points<br />`; 
+                    output += `<p>${current}: ${cnt + 4} points</p>`; 
                     break;
             }
-            current = array_elements[i];
+            current = player;
             cnt = 1;
         } else {
             cnt++;
@@ -52,3 +48,8 @@ function count(array_elements) {
     return output;
 }
 
+function getPoints() {
+	const list = document.getElementById('list').value;
+    const output = count(Compatibilizer(list));
+    document.write(output);	
+}
