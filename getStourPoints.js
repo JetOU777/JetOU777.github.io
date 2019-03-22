@@ -22,25 +22,25 @@ function count(array_elements) {
         if (array_elements[i] != current) {
             switch (cnt) {
                 case 2: case 3: 
-                    output += `${current} recieved ${cnt - 1} points<br />`; 
+                    output += `${current} received ${cnt - 1} points<br />`; 
                     break;
                 case 4:
-                    output += `${current} recieved ${cnt - 1} points<br />`; 
+                    output += `${current} received ${cnt - 1} points<br />`; 
                     break;
                 case 5:
-                    output += `${current} recieved ${cnt + 1} points<br />`; 
+                    output += `${current} received ${cnt + 1} points<br />`; 
                     break;
                 case 6:
-                    output += `${current} recieved ${cnt + 1} points<br />`; 
+                    output += `${current} received ${cnt + 1} points<br />`; 
                     break;
                 case 7:
-                    output += `${current} recieved ${cnt + 2} points<br />`; 
+                    output += `${current} received ${cnt + 2} points<br />`; 
                     break;
                 case 8:
-                    output += `${current} recieved ${cnt + 3} points<br />`; 
+                    output += `${current} received ${cnt + 3} points<br />`; 
                     break;
                 case 9:
-                    output += `${current} recieved ${cnt + 4} points<br />`; 
+                    output += `${current} received ${cnt + 4} points<br />`; 
                     break;
             }
             current = array_elements[i];
