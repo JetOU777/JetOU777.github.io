@@ -13,31 +13,22 @@ function count(players) {
 	let output = '';
     let current;
     let cnt;
+    const points = {
+        1: 1,
+        2: 2,
+        3: 3,
+        4: 5,
+        5: 7,
+        6: 9,
+        7: 9,
+        8: 11,
+        9: 13
+    };
     for (let player of players) {
         if (player != current) {
             // TODO: Support RR finals, and adding 2 points to winner.
-            switch (cnt) {
-                case 2: case 3: 
-                    output += `<p>${current}: ${cnt - 1} points</p>`; 
-                    break;
-                case 4:
-                    output += `<p>${current}: ${cnt - 1} points</p>`; 
-                    break;
-                case 5:
-                    output += `<p>${current}: ${cnt + 1} points</p>`; 
-                    break;
-                case 6:
-                    output += `<p>${current}: ${cnt + 1} points</p>`; 
-                    break;
-                case 7:
-                    output += `<p>${current}: ${cnt + 2} points</p>`; 
-                    break;
-                case 8:
-                    output += `<p>${current}: ${cnt + 3} points</p>`; 
-                    break;
-                case 9:
-                    output += `<p>${current}: ${cnt + 4} points</p>`; 
-                    break;
+            if (cnt > 1) {
+                output += `<p>${current} recieved ${points[cnt - 1]} points</p>`;
             }
             current = player;
             cnt = 1;
