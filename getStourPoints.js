@@ -28,7 +28,7 @@ function count(players) {
         if (player != current) {
             // TODO: Support RR finals, and adding 2 points to winner.
             if (cnt > 1) {
-                output += `<p>${current} recieved ${points[cnt - 1]} points</p>`;
+                output += `<p>${current} received ${points[cnt - 1]} points</p>`;
             }
             current = player;
             cnt = 1;
