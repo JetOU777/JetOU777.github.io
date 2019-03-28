@@ -3,8 +3,8 @@ function Compatibilizer(playerlist) {
     for (let matchup of playerlist.split('\n').map(x => x.split(' vs. '))) {
         if (matchup.length < 2) continue;
         const [p1, p2] = matchup;
-        (!/Bye #\d+/.test(p1) ? output.push(p1) : '');
-        (!/Bye #\d+/.test(p2) ? output.push(p2) : '');
+        !/Bye #\d+/.test(p1) ? output.push(p1) : '';
+        !/Bye #\d+/.test(p2) ? output.push(p2) : '';
     }
 	return output;
 }
