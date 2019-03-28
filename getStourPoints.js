@@ -1,6 +1,6 @@
 function Compatibilizer(playerlist) {
     let output = [];
-    for (let matchup of playerlist.split('\n').map(x => x.split(' vs. '))) {
+    for (let matchup of playerlist.split('\n').map(x => x.split(/ vs.? /gi))) {
         if (matchup.length < 2) continue;
         const [p1, p2] = matchup;
         output.push(p1, p2);
