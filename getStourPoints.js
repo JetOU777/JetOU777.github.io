@@ -10,10 +10,11 @@ function Compatibilizer(playerlist) {
 
 function count(players) {
     players.sort();
-	let output = '';
+    let output = '';
     let current;
     let cnt;
     const points = {
+	0: 0,
         1: 1,
         2: 2,
         3: 3,
@@ -27,7 +28,7 @@ function count(players) {
     for (let player of players) {
         if (player != current) {
             // TODO: Support RR finals, and adding 2 points to winner.
-            if (cnt > 1) {
+            if (cnt > 0) {
                 output += `<p>${current} received ${points[cnt - 1]} points</p>`;
             }
             current = player;
