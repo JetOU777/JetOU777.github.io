@@ -6,7 +6,7 @@
     "build": "tsc",
     "lint": "tslint --project .",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d dist"
+    "deploy": "gh-pages -d dist -e dist && gh-pages -d public -e public"
   },
   "repository": {
     "type": "git",
