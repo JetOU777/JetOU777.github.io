@@ -1,0 +1,18 @@
+{
+  "compilerOptions": {
+    "lib": ["dom", "es6", "es2016.array.include", "es2017.object"],
+    "target": "es5",
+    "moduleResolution": "node",
+    "incremental": true,
+    "jsx": "react",
+    "outDir": "dist",
+    "strict": true
+  },
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.tsx"
+  ],
+  "exclude": [
+    "./node_modules/*"
+  ]
+}

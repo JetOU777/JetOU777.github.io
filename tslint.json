@@ -1,0 +1,14 @@
+{
+    "defaultSeverity": "error",
+    "extends": [
+        "tslint:latest"
+    ],
+    "rules": {
+        "indent": [true, "tabs", 2],
+        "quotemark": false,
+        "member-access": false,
+        "max-classes-per-file": false,
+        "curly": false,
+        "no-console": false
+    }
+}
