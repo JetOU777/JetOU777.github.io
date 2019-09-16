@@ -21,9 +21,8 @@ var SMOGON_TOUR_POINTS = {
     4: 5,
     5: 7,
     6: 9,
-    7: 9,
-    8: 11,
-    9: 13,
+    7: 11,
+    8: 13,
 };
 var StourPoints = /** @class */ (function (_super) {
     __extends(StourPoints, _super);
