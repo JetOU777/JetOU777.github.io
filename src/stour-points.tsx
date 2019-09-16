@@ -7,9 +7,8 @@ const SMOGON_TOUR_POINTS: {[k: number]: number} = {
 	4: 5,
 	5: 7,
 	6: 9,
-	7: 9,
-	8: 11,
-	9: 13,
+	7: 11,
+	8: 13,
 };
 
 class StourPoints extends React.Component<{}, {
