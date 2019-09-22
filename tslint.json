@@ -9,6 +9,7 @@
         "member-access": false,
         "max-classes-per-file": false,
         "curly": false,
+        "object-literal-sort-keys": false,
         "no-console": false
     }
 }
