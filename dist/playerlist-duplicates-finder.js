@@ -18,12 +18,11 @@ var PlayerlistDuplicatesFinder = /** @class */ (function (_super) {
         var _this = _super !== null && _super.apply(this, arguments) || this;
         _this.state = {
             duplicates: '',
-            textareas: { 'textarea-0': '' },
+            playerlist: '',
         };
         _this.compatibilize = function () {
-            var textareas = _this.state.textareas;
             var compatibilized = [];
-            for (var _i = 0, _a = Object.values(textareas).join('\n').split('\n').map(function (val) { return val.split(/ vs.? /gi); }); _i < _a.length; _i++) {
+            for (var _i = 0, _a = _this.state.playerlist.split('\n').map(function (val) { return val.split(/ vs.? /gi); }); _i < _a.length; _i++) {
                 var players = _a[_i];
                 if (players.length !== 2)
                     continue;
@@ -36,21 +35,6 @@ var PlayerlistDuplicatesFinder = /** @class */ (function (_super) {
                 }
             }
             return compatibilized;
-        };
-        _this.handleChange = function (val, textarea) {
-            var textareas = _this.state.textareas;
-            textareas[textarea] = val;
-            _this.setState({
-                textareas: textareas,
-            });
-        };
-        _this.appendTextarea = function () {
-            var textareas = _this.state.textareas;
-            var newTextarea = "textarea-" + Object.keys(_this.state.textareas).length;
-            textareas[newTextarea] = '';
-            _this.setState({
-                textareas: textareas,
-            });
         };
         _this.findDuplicates = function () {
             var playerlists = _this.compatibilize();
@@ -70,16 +54,17 @@ var PlayerlistDuplicatesFinder = /** @class */ (function (_super) {
                 duplicates: duplicates,
             });
         };
+        _this.handleChange = function (val) {
+            _this.setState({
+                playerlist: val,
+            });
+        };
         return _this;
     }
     PlayerlistDuplicatesFinder.prototype.render = function () {
         var _this = this;
         return (React.createElement("div", { className: "playerlist-duplicates" },
-            Object.entries(this.state.textareas).map(function (_a, idx) {
-                var textarea = _a[0], playerlist = _a[1];
-                return (React.createElement("textarea", { key: idx, value: playerlist, onChange: function (e) { return _this.handleChange(e.target.value, textarea); } }));
-            }),
-            React.createElement("button", { onClick: function () { return _this.appendTextarea(); } }, "Append textarea"),
+            React.createElement("textarea", { onChange: function (e) { return _this.handleChange(e.target.value); } }),
             React.createElement("button", { onClick: function () { return _this.findDuplicates(); } }, "Find duplicates"),
             React.createElement("textarea", { value: this.state.duplicates, placeholder: 'Duplicate players will be here', readOnly: true })));
     };
