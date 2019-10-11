@@ -12,6 +12,32 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
+var __values = (this && this.__values) || function (o) {
+    var m = typeof Symbol === "function" && o[Symbol.iterator], i = 0;
+    if (m) return m.call(o);
+    return {
+        next: function () {
+            if (o && i >= o.length) o = void 0;
+            return { value: o && o[i++], done: !o };
+        }
+    };
+};
+var __read = (this && this.__read) || function (o, n) {
+    var m = typeof Symbol === "function" && o[Symbol.iterator];
+    if (!m) return o;
+    var i = m.call(o), r, ar = [], e;
+    try {
+        while ((n === void 0 || n-- > 0) && !(r = i.next()).done) ar.push(r.value);
+    }
+    catch (error) { e = { error: error }; }
+    finally {
+        try {
+            if (r && !r.done && (m = i["return"])) m.call(i);
+        }
+        finally { if (e) throw e.error; }
+    }
+    return ar;
+};
 var PlayerlistDuplicatesFinder = /** @class */ (function (_super) {
     __extends(PlayerlistDuplicatesFinder, _super);
     function PlayerlistDuplicatesFinder() {
@@ -20,32 +46,26 @@ var PlayerlistDuplicatesFinder = /** @class */ (function (_super) {
             duplicates: '',
             playerlist: '',
         };
-        _this.compatibilize = function () {
-            var compatibilized = [];
-            for (var _i = 0, _a = _this.state.playerlist.split('\n').map(function (val) { return val.split(/ vs.? /gi); }); _i < _a.length; _i++) {
-                var players = _a[_i];
-                if (players.length !== 2)
-                    continue;
-                var p1 = players[0], p2 = players[1];
-                if (!/Bye #\d+/.test(p1)) {
-                    compatibilized.push(p1);
-                }
-                if (!/Bye #\d+/.test(p2)) {
-                    compatibilized.push(p2);
-                }
-            }
-            return compatibilized;
-        };
         _this.findDuplicates = function () {
+            var e_1, _a;
             var playerlists = _this.compatibilize();
             var occurences = {};
-            for (var _i = 0, playerlists_1 = playerlists; _i < playerlists_1.length; _i++) {
-                var player = playerlists_1[_i];
-                var occurence = occurences[player];
-                occurences[player] = occurence === undefined ? 1 : occurence + 1;
+            try {
+                for (var playerlists_1 = __values(playerlists), playerlists_1_1 = playerlists_1.next(); !playerlists_1_1.done; playerlists_1_1 = playerlists_1.next()) {
+                    var player = playerlists_1_1.value;
+                    var occurence = occurences[player];
+                    occurences[player] = occurence === undefined ? 1 : occurence + 1;
+                }
+            }
+            catch (e_1_1) { e_1 = { error: e_1_1 }; }
+            finally {
+                try {
+                    if (playerlists_1_1 && !playerlists_1_1.done && (_a = playerlists_1.return)) _a.call(playerlists_1);
+                }
+                finally { if (e_1) throw e_1.error; }
             }
             var duplicates = Object.entries(occurences).map(function (_a) {
-                var player = _a[0], occurence = _a[1];
+                var _b = __read(_a, 2), player = _b[0], occurence = _b[1];
                 if (occurence > 1) {
                     return player + " signed up " + occurence + " times!";
                 }
@@ -61,6 +81,32 @@ var PlayerlistDuplicatesFinder = /** @class */ (function (_super) {
         };
         return _this;
     }
+    PlayerlistDuplicatesFinder.prototype.compatibilize = function () {
+        var e_2, _a;
+        var compatibilized = [];
+        try {
+            for (var _b = __values(this.state.playerlist.split('\n').map(function (val) { return val.split(/ vs.? /gi); })), _c = _b.next(); !_c.done; _c = _b.next()) {
+                var players = _c.value;
+                if (players.length !== 2)
+                    continue;
+                var _d = __read(players, 2), p1 = _d[0], p2 = _d[1];
+                if (!/Bye\d+/.test(p1)) {
+                    compatibilized.push(p1);
+                }
+                if (!/Bye\d+/.test(p2)) {
+                    compatibilized.push(p2);
+                }
+            }
+        }
+        catch (e_2_1) { e_2 = { error: e_2_1 }; }
+        finally {
+            try {
+                if (_c && !_c.done && (_a = _b.return)) _a.call(_b);
+            }
+            finally { if (e_2) throw e_2.error; }
+        }
+        return compatibilized;
+    };
     PlayerlistDuplicatesFinder.prototype.render = function () {
         var _this = this;
         return (React.createElement("div", { className: "playerlist-duplicates" },

@@ -62,12 +62,12 @@
         "signature": "28a0f00c0260ec20563adb58087cdd4cc36f29a5ac1ad634ae6a12eed33d5ac3"
       },
       "c:/users/waleed/hub/projects/thejetou.github.io/src/playerlist-duplicates-finder.tsx": {
-        "version": "6ca0e5f3726df97b64df86cc6795347874f8040e19e1f373ca3f422f112302d1",
-        "signature": "3d2479fe8119d22e0697c9b120427ffdabb01b81ae61358d1e81a6c61b91f2e8"
+        "version": "f99ffcf1f6c5c3d97759e8df36d97c6f7bd257f094f979dd8c9c6bc627fee1f7",
+        "signature": "867e1eb6a6763ad08966979a0160ad88c12c2b43a8f776d521bfe650cd494254"
       },
       "c:/users/waleed/hub/projects/thejetou.github.io/src/stour-points.tsx": {
-        "version": "ca8c531aad66aaa2a8f12c6eb9351cbc7c42afe5ff879b9618128deb4bdb5080",
-        "signature": "a472bb3cc76d84145768bd25b35979a73c95779eba6b49560195200f09f342b5"
+        "version": "23ffd9987fe76e0d54d22b004dabbaac432f61b8b6a0451ebc8e09edfb8b1c6c",
+        "signature": "e10b51c9a4af5f3f8a5481b94a47f28f0b9b53f78029721d1cdb9364d31dc3f4"
       },
       "c:/users/waleed/hub/projects/thejetou.github.io/node_modules/@types/prop-types/index.d.ts": {
         "version": "5e632216dfe01f2ff76f1c312c28632fde75364c24d659b732f2ee59e9ccf1b2",
@@ -100,6 +100,7 @@
       "target": 1,
       "moduleResolution": 2,
       "incremental": true,
+      "downlevelIteration": true,
       "jsx": 2,
       "outDir": "C:/Users/Waleed/Hub/Projects/thejetou.github.io/dist",
       "strict": true,
