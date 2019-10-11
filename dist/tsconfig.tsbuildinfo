@@ -66,7 +66,7 @@
         "signature": "867e1eb6a6763ad08966979a0160ad88c12c2b43a8f776d521bfe650cd494254"
       },
       "c:/users/waleed/hub/projects/thejetou.github.io/src/stour-points.tsx": {
-        "version": "0632ffd0b24326ef9cb7e46e18073510b1928ebd7620e625a7e06ec389cf0576",
+        "version": "f0e30a8fab8c4c188ae3bb9f4e4b1fe30460986b613c297b0c532bc15cbbbcf7",
         "signature": "e10b51c9a4af5f3f8a5481b94a47f28f0b9b53f78029721d1cdb9364d31dc3f4"
       },
       "c:/users/waleed/hub/projects/thejetou.github.io/node_modules/@types/prop-types/index.d.ts": {
@@ -143,12 +143,12 @@
       "c:/users/waleed/hub/projects/thejetou.github.io/node_modules/typescript/lib/lib.es2017.object.d.ts",
       "c:/users/waleed/hub/projects/thejetou.github.io/src/compatibilizer.tsx",
       "c:/users/waleed/hub/projects/thejetou.github.io/src/playerlist-duplicates-finder.tsx",
+      "c:/users/waleed/hub/projects/thejetou.github.io/src/stour-points.tsx",
       "c:/users/waleed/hub/projects/thejetou.github.io/node_modules/@types/prop-types/index.d.ts",
       "c:/users/waleed/hub/projects/thejetou.github.io/node_modules/@types/react/global.d.ts",
       "c:/users/waleed/hub/projects/thejetou.github.io/node_modules/csstype/index.d.ts",
       "c:/users/waleed/hub/projects/thejetou.github.io/node_modules/@types/react/index.d.ts",
-      "c:/users/waleed/hub/projects/thejetou.github.io/node_modules/@types/react-dom/index.d.ts",
-      "c:/users/waleed/hub/projects/thejetou.github.io/src/stour-points.tsx"
+      "c:/users/waleed/hub/projects/thejetou.github.io/node_modules/@types/react-dom/index.d.ts"
     ]
   },
   "version": "3.5.3"

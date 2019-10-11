@@ -61,16 +61,16 @@ var StourPoints = /** @class */ (function (_super) {
         _this.getPoints = function () {
             var e_1, _a;
             var matchups = _this.getMatchups();
-            /** point -> players */
+            /** player -> points */
             var occurences = {};
             try {
                 for (var _b = __values(matchups.entries()), _c = _b.next(); !_c.done; _c = _b.next()) {
                     var _d = __read(_c.value, 2), player = _d[0], mus = _d[1];
                     var occurence = 0;
                     if (mus.some(function (mu) { return !/Bye(\d+)?/.test(mu); })) {
-                        occurence = mus.length;
+                        occurence = mus.length - 1;
                     }
-                    occurences[player] = occurence;
+                    occurences[player] = SMOGON_TOUR_POINTS[occurence];
                 }
             }
             catch (e_1_1) { e_1 = { error: e_1_1 }; }
@@ -80,12 +80,12 @@ var StourPoints = /** @class */ (function (_super) {
                 }
                 finally { if (e_1) throw e_1.error; }
             }
+            console.log(occurences);
             _this.setState({
                 points: Object.values(SMOGON_TOUR_POINTS).map(function (point) {
                     var buf = point + " Points\n";
                     return buf += Object.entries(occurences).map(function (_a) {
-                        var _b = __read(_a, 2), player = _b[0], occurence = _b[1];
-                        var playerPoints = SMOGON_TOUR_POINTS[occurence];
+                        var _b = __read(_a, 2), player = _b[0], playerPoints = _b[1];
                         if (playerPoints === point) {
                             return player;
                         }
@@ -109,10 +109,14 @@ var StourPoints = /** @class */ (function (_super) {
                 if (players.length !== 2)
                     continue;
                 var _d = __read(players, 2), p1 = _d[0], p2 = _d[1];
-                var p1Matchups = matchups.get(p1);
-                matchups.set(p1, (p1Matchups || []).concat(p2));
-                var p2Matchups = matchups.get(p1);
-                matchups.set(p2, (p2Matchups || []).concat(p1));
+                if (!/Bye(\d+)?/.test(p1)) {
+                    var p1Matchups = matchups.get(p1);
+                    matchups.set(p1, (p1Matchups || []).concat(p2));
+                }
+                if (!/Bye(\d+)?/.test(p2)) {
+                    var p2Matchups = matchups.get(p2);
+                    matchups.set(p2, (p2Matchups || []).concat(p1));
+                }
             }
         }
         catch (e_2_1) { e_2 = { error: e_2_1 }; }
@@ -122,6 +126,7 @@ var StourPoints = /** @class */ (function (_super) {
             }
             finally { if (e_2) throw e_2.error; }
         }
+        console.log(matchups);
         return matchups;
     };
     StourPoints.prototype.render = function () {
