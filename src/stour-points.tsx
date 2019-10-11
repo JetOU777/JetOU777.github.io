@@ -33,7 +33,6 @@ class StourPoints extends React.Component<{}, {
 				matchups.set(p2, (p2Matchups || []).concat(p1));
 			}
 		}
-		console.log(matchups);
 		return matchups;
 	}
 	getPoints = () => {
@@ -47,7 +46,6 @@ class StourPoints extends React.Component<{}, {
 			}
 			occurences[player] = SMOGON_TOUR_POINTS[occurence];
 		}
-		console.log(occurences);
 		this.setState({
 			points: Object.values(SMOGON_TOUR_POINTS).map((point) => {
 				let buf = `${point} Points\n`;
