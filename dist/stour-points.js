@@ -67,7 +67,7 @@ var StourPoints = /** @class */ (function (_super) {
                 for (var _b = __values(matchups.entries()), _c = _b.next(); !_c.done; _c = _b.next()) {
                     var _d = __read(_c.value, 2), player = _d[0], mus = _d[1];
                     var occurence = 0;
-                    if (mus.some(function (mu) { return !/Bye(\d+)/.test(mu); })) {
+                    if (mus.some(function (mu) { return !/Bye(\d+)?/.test(mu); })) {
                         occurence = mus.length;
                     }
                     occurences[player] = occurence;
