@@ -61,16 +61,14 @@ var StourPoints = /** @class */ (function (_super) {
         _this.getPoints = function () {
             var e_1, _a;
             var matchups = _this.getMatchups();
-            /** player -> points */
+            /** player -> occurence */
             var occurences = {};
             try {
                 for (var _b = __values(matchups.entries()), _c = _b.next(); !_c.done; _c = _b.next()) {
                     var _d = __read(_c.value, 2), player = _d[0], mus = _d[1];
-                    var occurence = 0;
-                    if (mus.some(function (mu) { return !/Bye(\d+)?/.test(mu); })) {
-                        occurence = mus.length - 1;
-                    }
-                    occurences[player] = SMOGON_TOUR_POINTS[occurence];
+                    var byeMatchups = mus.filter(function (mu) { return /Bye(\d+)?/.test(mu); });
+                    var occurence = byeMatchups.length + 1 === mus.length ? 0 : mus.length - 1;
+                    occurences[player] = occurence;
                 }
             }
             catch (e_1_1) { e_1 = { error: e_1_1 }; }
@@ -84,7 +82,8 @@ var StourPoints = /** @class */ (function (_super) {
                 points: Object.values(SMOGON_TOUR_POINTS).map(function (point) {
                     var buf = point + " Points\n";
                     return buf += Object.entries(occurences).map(function (_a) {
-                        var _b = __read(_a, 2), player = _b[0], playerPoints = _b[1];
+                        var _b = __read(_a, 2), player = _b[0], occurence = _b[1];
+                        var playerPoints = SMOGON_TOUR_POINTS[occurence];
                         if (playerPoints === point) {
                             return player;
                         }
