@@ -27,7 +27,7 @@ class StourPoints extends React.Component<{}, {
 			const p1Matchups = matchups.get(p1);
 			matchups.set(p1, (p1Matchups || []).concat(p2));
 			const p2Matchups = matchups.get(p1);
-			matchups.set(p2, (p1Matchups || []).concat(p1));
+			matchups.set(p2, (p2Matchups || []).concat(p1));
 
 		}
 		return matchups;
