@@ -112,7 +112,7 @@ var StourPoints = /** @class */ (function (_super) {
                 var p1Matchups = matchups.get(p1);
                 matchups.set(p1, (p1Matchups || []).concat(p2));
                 var p2Matchups = matchups.get(p1);
-                matchups.set(p2, (p1Matchups || []).concat(p1));
+                matchups.set(p2, (p2Matchups || []).concat(p1));
             }
         }
         catch (e_2_1) { e_2 = { error: e_2_1 }; }
