@@ -80,7 +80,6 @@ var StourPoints = /** @class */ (function (_super) {
                 }
                 finally { if (e_1) throw e_1.error; }
             }
-            console.log(occurences);
             _this.setState({
                 points: Object.values(SMOGON_TOUR_POINTS).map(function (point) {
                     var buf = point + " Points\n";
@@ -126,7 +125,6 @@ var StourPoints = /** @class */ (function (_super) {
             }
             finally { if (e_2) throw e_2.error; }
         }
-        console.log(matchups);
         return matchups;
     };
     StourPoints.prototype.render = function () {
