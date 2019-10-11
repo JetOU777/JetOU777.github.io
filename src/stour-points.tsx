@@ -24,30 +24,34 @@ class StourPoints extends React.Component<{}, {
 		for (const players of this.state.playerlist.split('\n').map((val) => val.split(/ vs.? /gi))) {
 			if (players.length !== 2) continue;
 			const [p1, p2] = players;
-			const p1Matchups = matchups.get(p1);
-			matchups.set(p1, (p1Matchups || []).concat(p2));
-			const p2Matchups = matchups.get(p1);
-			matchups.set(p2, (p2Matchups || []).concat(p1));
-
+			if (!/Bye(\d+)?/.test(p1)) {
+				const p1Matchups = matchups.get(p1);
+				matchups.set(p1, (p1Matchups || []).concat(p2));
+			}
+			if (!/Bye(\d+)?/.test(p2)) {
+				const p2Matchups = matchups.get(p2);
+				matchups.set(p2, (p2Matchups || []).concat(p1));
+			}
 		}
+		console.log(matchups);
 		return matchups;
 	}
 	getPoints = () => {
 		const matchups = this.getMatchups();
-		/** point -> players */
+		/** player -> points */
 		const occurences: {[player: string]: number} = {};
 		for (const [player, mus] of matchups.entries()) {
 			let occurence = 0;
 			if (mus.some((mu) => !/Bye(\d+)?/.test(mu))) {
-				occurence = mus.length;
+				occurence = mus.length - 1;
 			}
-			occurences[player] = occurence;
+			occurences[player] = SMOGON_TOUR_POINTS[occurence];
 		}
+		console.log(occurences);
 		this.setState({
 			points: Object.values(SMOGON_TOUR_POINTS).map((point) => {
 				let buf = `${point} Points\n`;
-				return buf += Object.entries(occurences).map(([player, occurence]) => {
-					const playerPoints = SMOGON_TOUR_POINTS[occurence];
+				return buf += Object.entries(occurences).map(([player, playerPoints]) => {
 					if (playerPoints === point) {
 						return player;
 					}
