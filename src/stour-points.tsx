@@ -37,19 +37,18 @@ class StourPoints extends React.Component<{}, {
 	}
 	getPoints = () => {
 		const matchups = this.getMatchups();
-		/** player -> points */
+		/** player -> occurence */
 		const occurences: {[player: string]: number} = {};
 		for (const [player, mus] of matchups.entries()) {
-			let occurence = 0;
-			if (mus.some((mu) => !/Bye(\d+)?/.test(mu))) {
-				occurence = mus.length - 1;
-			}
-			occurences[player] = SMOGON_TOUR_POINTS[occurence];
+			const byeMatchups = mus.filter((mu) => /Bye(\d+)?/.test(mu));
+			const occurence = byeMatchups.length + 1 === mus.length ? 0 : mus.length - 1;
+			occurences[player] = occurence;
 		}
 		this.setState({
 			points: Object.values(SMOGON_TOUR_POINTS).map((point) => {
 				let buf = `${point} Points\n`;
-				return buf += Object.entries(occurences).map(([player, playerPoints]) => {
+				return buf += Object.entries(occurences).map(([player, occurence]) => {
+					const playerPoints = SMOGON_TOUR_POINTS[occurence];
 					if (playerPoints === point) {
 						return player;
 					}
