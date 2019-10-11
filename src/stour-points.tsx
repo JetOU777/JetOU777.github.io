@@ -38,7 +38,7 @@ class StourPoints extends React.Component<{}, {
 		const occurences: {[player: string]: number} = {};
 		for (const [player, mus] of matchups.entries()) {
 			let occurence = 0;
-			if (mus.some((mu) => !/Bye(\d+)/.test(mu))) {
+			if (mus.some((mu) => !/Bye(\d+)?/.test(mu))) {
 				occurence = mus.length;
 			}
 			occurences[player] = occurence;
