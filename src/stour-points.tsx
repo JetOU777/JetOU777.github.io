@@ -19,27 +19,29 @@ class StourPoints extends React.Component<{}, {
 		points: '',
 		playerlist: '',
 	};
-	compatibilize = () => {
-		const compatibilized: string[] = [];
+	getMatchups() {
+		const matchups = new Map<string, string[]>();
 		for (const players of this.state.playerlist.split('\n').map((val) => val.split(/ vs.? /gi))) {
 			if (players.length !== 2) continue;
 			const [p1, p2] = players;
-			if (!/Bye #\d+/.test(p1)) {
-				compatibilized.push(p1);
-			}
-			if (!/Bye #\d+/.test(p2)) {
-				compatibilized.push(p2);
-			}
+			const p1Matchups = matchups.get(p1);
+			matchups.set(p1, (p1Matchups || []).concat(p2));
+			const p2Matchups = matchups.get(p1);
+			matchups.set(p2, (p1Matchups || []).concat(p1));
+
 		}
-		return compatibilized;
+		return matchups;
 	}
 	getPoints = () => {
-		const playerlist = this.compatibilize();
+		const matchups = this.getMatchups();
 		/** point -> players */
 		const occurences: {[player: string]: number} = {};
-		for (const player of playerlist) {
-			const occurence = occurences[player];
-			occurences[player] = occurence === undefined ? 0 : occurence + 1;
+		for (const [player, mus] of matchups.entries()) {
+			let occurence = 0;
+			if (mus.some((mu) => !/Bye(\d+)/.test(mu))) {
+				occurence = mus.length;
+			}
+			occurences[player] = occurence;
 		}
 		this.setState({
 			points: Object.values(SMOGON_TOUR_POINTS).map((point) => {

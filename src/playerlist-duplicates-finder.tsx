@@ -6,15 +6,15 @@ class PlayerlistDuplicatesFinder extends React.Component<{}, {
 		duplicates: '',
 		playerlist: '',
 	};
-	compatibilize = () => {
+	compatibilize() {
 		const compatibilized: string[] = [];
 		for (const players of this.state.playerlist.split('\n').map((val) => val.split(/ vs.? /gi))) {
 			if (players.length !== 2) continue;
 			const [p1, p2] = players;
-			if (!/Bye #\d+/.test(p1)) {
+			if (!/Bye\d+/.test(p1)) {
 				compatibilized.push(p1);
 			}
-			if (!/Bye #\d+/.test(p2)) {
+			if (!/Bye\d+/.test(p2)) {
 				compatibilized.push(p2);
 			}
 		}

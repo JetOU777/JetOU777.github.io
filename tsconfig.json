@@ -4,6 +4,7 @@
     "target": "es5",
     "moduleResolution": "node",
     "incremental": true,
+    "downlevelIteration": true,
     "jsx": "react",
     "outDir": "dist",
     "strict": true
