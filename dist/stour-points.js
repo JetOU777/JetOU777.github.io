@@ -106,7 +106,7 @@ var StourPoints = /** @class */ (function (_super) {
                 var players = _c.value;
                 if (players.length !== 2)
                     continue;
-                var _d = __read(players, 2), p1 = _d[0], p2 = _d[1];
+                var _d = __read(players.map(function (player) { return player.toLowerCase(); }), 2), p1 = _d[0], p2 = _d[1];
                 if (!/Bye(\d+)?/.test(p1)) {
                     var p1Matchups = matchups.get(p1);
                     matchups.set(p1, (p1Matchups || []).concat(p2));
