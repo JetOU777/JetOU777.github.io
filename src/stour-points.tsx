@@ -23,7 +23,7 @@ class StourPoints extends React.Component<{}, {
 		const matchups = new Map<string, string[]>();
 		for (const players of this.state.playerlist.split('\n').map((val) => val.split(/ vs.? /gi))) {
 			if (players.length !== 2) continue;
-			const [p1, p2] = players;
+			const [p1, p2] = players.map(player => player.toLowerCase());
 			if (!/Bye(\d+)?/.test(p1)) {
 				const p1Matchups = matchups.get(p1);
 				matchups.set(p1, (p1Matchups || []).concat(p2));
