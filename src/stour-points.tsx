@@ -23,12 +23,12 @@ class StourPoints extends React.Component<{}, {
 		const matchups = new Map<string, string[]>();
 		for (const players of this.state.playerlist.split('\n').map((val) => val.split(/ vs.? /gi))) {
 			if (players.length !== 2) continue;
-			const [p1, p2] = players.map(player => player.toLowerCase());
-			if (!/Bye(\d+)?/.test(p1)) {
+			const [p1, p2] = players.map((player) => player.toLowerCase());
+			if (!/Bye(\d+)?/i.test(p1)) {
 				const p1Matchups = matchups.get(p1);
 				matchups.set(p1, (p1Matchups || []).concat(p2));
 			}
-			if (!/Bye(\d+)?/.test(p2)) {
+			if (!/Bye(\d+)?/i.test(p2)) {
 				const p2Matchups = matchups.get(p2);
 				matchups.set(p2, (p2Matchups || []).concat(p1));
 			}
@@ -40,7 +40,7 @@ class StourPoints extends React.Component<{}, {
 		/** player -> occurence */
 		const occurences: {[player: string]: number} = {};
 		for (const [player, mus] of matchups.entries()) {
-			const byeMatchups = mus.filter((mu) => /Bye(\d+)?/.test(mu));
+			const byeMatchups = mus.filter((mu) => /Bye(\d+)?/i.test(mu));
 			const occurence = byeMatchups.length + 1 === mus.length ? 0 : mus.length - 1;
 			occurences[player] = occurence;
 		}
