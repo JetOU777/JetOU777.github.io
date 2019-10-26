@@ -66,8 +66,8 @@
         "signature": "6881e6ae57a3da5d9591fc748f8fde3b4384ab9ed682ae53433d1098d0ff1eff"
       },
       "/home/waleed/Projects/hosting-tools/src/stour-points.tsx": {
-        "version": "8866e9ab1e12b137a50253da5febea18cf6a4507536dd94a9204f67f481d7509",
-        "signature": "0ee0ba164baba4eba84bc8a1a82131d5cf9cf3c256b5afb68798c25b6fa27a08"
+        "version": "c5d921b7914a7d643f1c5454c4009a8b5935729c383af4f321a83a4676a630d3",
+        "signature": "a669137f7ac62f948c799f60081bdcc3c8d1d7d99dcc393814862cb082d23dd0"
       },
       "/home/waleed/Projects/hosting-tools/node_modules/@types/prop-types/index.d.ts": {
         "version": "5e632216dfe01f2ff76f1c312c28632fde75364c24d659b732f2ee59e9ccf1b2",
@@ -143,12 +143,12 @@
       "/home/waleed/Projects/hosting-tools/node_modules/typescript/lib/lib.es2017.object.d.ts",
       "/home/waleed/Projects/hosting-tools/src/compatibilizer.tsx",
       "/home/waleed/Projects/hosting-tools/src/playerlist-duplicates-finder.tsx",
+      "/home/waleed/Projects/hosting-tools/src/stour-points.tsx",
       "/home/waleed/Projects/hosting-tools/node_modules/@types/prop-types/index.d.ts",
       "/home/waleed/Projects/hosting-tools/node_modules/@types/react/global.d.ts",
       "/home/waleed/Projects/hosting-tools/node_modules/csstype/index.d.ts",
       "/home/waleed/Projects/hosting-tools/node_modules/@types/react/index.d.ts",
-      "/home/waleed/Projects/hosting-tools/node_modules/@types/react-dom/index.d.ts",
-      "/home/waleed/Projects/hosting-tools/src/stour-points.tsx"
+      "/home/waleed/Projects/hosting-tools/node_modules/@types/react-dom/index.d.ts"
     ]
   },
   "version": "3.5.3"

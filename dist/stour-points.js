@@ -60,15 +60,17 @@ var StourPoints = /** @class */ (function (_super) {
         };
         _this.getPoints = function () {
             var e_1, _a;
+            // TODO: write tests
             var matchups = _this.getMatchups();
-            /** player -> occurence */
+            var playerlist = _this.getPlayerlist();
+            /** occurence -> player */
             var occurences = {};
             try {
                 for (var _b = __values(matchups.entries()), _c = _b.next(); !_c.done; _c = _b.next()) {
                     var _d = __read(_c.value, 2), player = _d[0], mus = _d[1];
-                    var byeMatchups = mus.filter(function (mu) { return /Bye(\d+)?/.test(mu); });
+                    var byeMatchups = mus.filter(function (mu) { return /Bye(\d+)?/i.test(mu); });
                     var occurence = byeMatchups.length + 1 === mus.length ? 0 : mus.length - 1;
-                    occurences[player] = occurence;
+                    occurences[occurence] = (occurences[occurence] || []).concat(playerlist.get(player));
                 }
             }
             catch (e_1_1) { e_1 = { error: e_1_1 }; }
@@ -79,15 +81,10 @@ var StourPoints = /** @class */ (function (_super) {
                 finally { if (e_1) throw e_1.error; }
             }
             _this.setState({
-                points: Object.values(SMOGON_TOUR_POINTS).map(function (point) {
+                points: Object.entries(SMOGON_TOUR_POINTS).map(function (_a) {
+                    var _b = __read(_a, 2), round = _b[0], point = _b[1];
                     var buf = point + " Points\n";
-                    return buf += Object.entries(occurences).map(function (_a) {
-                        var _b = __read(_a, 2), player = _b[0], occurence = _b[1];
-                        var playerPoints = SMOGON_TOUR_POINTS[occurence];
-                        if (playerPoints === point) {
-                            return player;
-                        }
-                    }).filter(function (player) { return player; }).join(', ');
+                    return buf += (occurences[parseInt(round, 10)] || []).join(', ');
                 }).join('\n\n'),
             });
         };
@@ -98,22 +95,20 @@ var StourPoints = /** @class */ (function (_super) {
         };
         return _this;
     }
-    StourPoints.prototype.getMatchups = function () {
+    StourPoints.prototype.getPlayerlist = function () {
         var e_2, _a;
-        var matchups = new Map();
+        var playerlist = new Map();
         try {
             for (var _b = __values(this.state.playerlist.split('\n').map(function (val) { return val.split(/ vs.? /gi); })), _c = _b.next(); !_c.done; _c = _b.next()) {
                 var players = _c.value;
                 if (players.length !== 2)
                     continue;
-                var _d = __read(players.map(function (player) { return player.toLowerCase(); }), 2), p1 = _d[0], p2 = _d[1];
-                if (!/Bye(\d+)?/.test(p1)) {
-                    var p1Matchups = matchups.get(p1);
-                    matchups.set(p1, (p1Matchups || []).concat(p2));
+                var _d = __read(players, 2), p1 = _d[0], p2 = _d[1];
+                if (!/Bye\d+/.test(p1)) {
+                    playerlist.set(p1.toLowerCase(), p1);
                 }
-                if (!/Bye(\d+)?/.test(p2)) {
-                    var p2Matchups = matchups.get(p2);
-                    matchups.set(p2, (p2Matchups || []).concat(p1));
+                if (!/Bye\d+/.test(p2)) {
+                    playerlist.set(p2.toLowerCase(), p2);
                 }
             }
         }
@@ -123,6 +118,34 @@ var StourPoints = /** @class */ (function (_super) {
                 if (_c && !_c.done && (_a = _b.return)) _a.call(_b);
             }
             finally { if (e_2) throw e_2.error; }
+        }
+        return playerlist;
+    };
+    StourPoints.prototype.getMatchups = function () {
+        var e_3, _a;
+        var matchups = new Map();
+        try {
+            for (var _b = __values(this.state.playerlist.split('\n').map(function (val) { return val.split(/ vs.? /gi); })), _c = _b.next(); !_c.done; _c = _b.next()) {
+                var players = _c.value;
+                if (players.length !== 2)
+                    continue;
+                var _d = __read(players.map(function (player) { return player.toLowerCase(); }), 2), p1 = _d[0], p2 = _d[1];
+                if (!/Bye(\d+)?/i.test(p1)) {
+                    var p1Matchups = matchups.get(p1);
+                    matchups.set(p1, (p1Matchups || []).concat(p2));
+                }
+                if (!/Bye(\d+)?/i.test(p2)) {
+                    var p2Matchups = matchups.get(p2);
+                    matchups.set(p2, (p2Matchups || []).concat(p1));
+                }
+            }
+        }
+        catch (e_3_1) { e_3 = { error: e_3_1 }; }
+        finally {
+            try {
+                if (_c && !_c.done && (_a = _b.return)) _a.call(_b);
+            }
+            finally { if (e_3) throw e_3.error; }
         }
         return matchups;
     };
