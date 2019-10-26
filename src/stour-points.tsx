@@ -19,6 +19,20 @@ class StourPoints extends React.Component<{}, {
 		points: '',
 		playerlist: '',
 	};
+	getPlayerlist() {
+		const playerlist = new Map<string, string>();
+		for (const players of this.state.playerlist.split('\n').map((val) => val.split(/ vs.? /gi))) {
+			if (players.length !== 2) continue;
+			const [p1, p2] = players;
+			if (!/Bye\d+/.test(p1)) {
+				playerlist.set(p1.toLowerCase(), p1);
+			}
+			if (!/Bye\d+/.test(p2)) {
+				playerlist.set(p2.toLowerCase(), p2);
+			}
+		}
+		return playerlist;
+	}
 	getMatchups() {
 		const matchups = new Map<string, string[]>();
 		for (const players of this.state.playerlist.split('\n').map((val) => val.split(/ vs.? /gi))) {
@@ -36,13 +50,15 @@ class StourPoints extends React.Component<{}, {
 		return matchups;
 	}
 	getPoints = () => {
+		// TODO: write tests
 		const matchups = this.getMatchups();
+		const playerlist = this.getPlayerlist();
 		/** occurence -> player */
 		const occurences: {[occurence: number]: string[]} = {};
 		for (const [player, mus] of matchups.entries()) {
 			const byeMatchups = mus.filter((mu) => /Bye(\d+)?/i.test(mu));
 			const occurence = byeMatchups.length + 1 === mus.length ? 0 : mus.length - 1;
-			occurences[occurence] = (occurences[occurence] || []).concat(player);
+			occurences[occurence] = (occurences[occurence] || []).concat(playerlist.get(player)!);
 		}
 		this.setState({
 			points: Object.entries(SMOGON_TOUR_POINTS).map(([round, point]) => {
