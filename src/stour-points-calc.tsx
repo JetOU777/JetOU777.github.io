@@ -1,0 +1,99 @@
+import * as React from "react";
+import * as ReactDOM from "react-dom";
+
+/** round -> points */
+const SMOGON_TOUR_POINTS: {[k: number]: number} = {
+    0: 0,
+    1: 1,
+    2: 2,
+    3: 3,
+    4: 5,
+    5: 7,
+    6: 9,
+    7: 11,
+    8: 13,
+};
+
+export class SmogonTourPointsCalculator extends React.Component<{}, {
+    /** points -> players */
+    points: {[points: string]: string[]};
+    playerlist: string,
+}> {
+    state = {
+        points: {},
+        playerlist: "",
+    };
+    parsePlayerlist(playerlist: string) {
+        const players: Array<[[string, string], [string, string]]> = [];
+        for (const matchup of playerlist.split("\n").map((el) => el.split(/ vs.? /gi))) {
+            if (matchup.length !== 2) continue;
+            const [p1, p2] = matchup;
+            players.push([[p1.toLowerCase(), p1], [p2.toLowerCase(), p2]]);
+        }
+        return players;
+    }
+    /**
+     * Returns a map of a player and each player they faced.
+     */
+    getMatchups(players: Array<[[string, string], [string, string]]>) {
+        const matchups = new Map<string, string[]>();
+        for (const [[p1ID], [p2ID]] of players) {
+            if (!/^Bye(\s?\d+)?$/i.test(p1ID)) {
+                const p1Matchups = matchups.get(p1ID);
+                matchups.set(p1ID, (p1Matchups || []).concat(p2ID));
+            }
+            if (!/^Bye(\s?\d+)?$/i.test(p2ID)) {
+                const p2Matchups = matchups.get(p2ID);
+                matchups.set(p2ID, (p2Matchups || []).concat(p1ID));
+            }
+        }
+        return matchups;
+    }
+    calculatePoints(players: Array<[[string, string], [string, string]]>) {
+        // TODO: write tests
+        const matchups = this.getMatchups(players);
+        const points: {[point: number]: string[]} = {};
+        const flatPlayers = players.reduce<{[playerID: string]: string}>((acc, cur) => {
+            const [[p1ID, p1], [p2ID, p2]] = cur;
+            acc[p1ID] = p1;
+            acc[p2ID] = p2;
+            return acc;
+        }, {});
+        for (const [playerID, mus] of matchups.entries()) {
+            const byeMatchups = mus.filter((mu) => /^Bye(\s?\d+)?$/i.test(mu));
+            const point = SMOGON_TOUR_POINTS[byeMatchups.length + 1 === mus.length ? 0 : mus.length - 1];
+            points[point] = (points[point] || []).concat(flatPlayers[playerID]);
+        }
+        return points;
+    }
+    formatPoints(points: {[points: string]: string[]}) {
+        return (Object.entries(points) as any as Array<[number, string[]]>).map(([point, players]) => {
+            let buf = `${point} point(s)\n`;
+            return buf += players.join(", ") + "\n";
+        }).join("\n");
+    }
+    render() {
+        return (
+            <div className="stour-points-calc">
+                <textarea onChange={(e) => {
+                    this.setState({
+                        playerlist: e.target.value,
+                    });
+                }}>
+                </textarea>
+                <button onClick={() => this.setState({
+                    points: this.calculatePoints(this.parsePlayerlist(this.state.playerlist)),
+                })}>
+                    Calculate Points
+                </button>
+                <textarea value={this.formatPoints(this.state.points)} placeholder="Points will be here" readOnly>
+                </textarea>
+            </div>
+        );
+    }
+}
+
+ReactDOM.render(
+    <SmogonTourPointsCalculator />,
+    document.getElementById("project"),
+);

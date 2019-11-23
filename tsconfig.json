@@ -6,7 +6,7 @@
     "incremental": true,
     "downlevelIteration": true,
     "jsx": "react",
-    "outDir": "dist",
+    "outDir": "public/js",
     "strict": true
   },
   "include": [

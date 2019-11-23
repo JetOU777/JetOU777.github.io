@@ -4,21 +4,12 @@
 	font-family: monospace;
 }
 
-.compatibilizer textarea {
+.playerlist-compatibilizer textarea {
 	width: 100%;
 	height: 40vh;
 }
 
-.compatibilizer button {
-	width: 100%;
-}
-
-.stour-points textarea {
-	width: 100%;
-	height: 40vh;
-}
-
-.stour-points button {
+.playerlist-compatibilizer button {
 	width: 100%;
 }
 
@@ -28,5 +19,14 @@
 }
 
 .playerlist-duplicates button {
+	width: 100%;
+}
+
+.stour-points-calc textarea {
+	width: 100%;
+	height: 40vh;
+}
+
+.stour-points-calc button {
 	width: 100%;
 }

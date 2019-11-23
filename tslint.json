@@ -4,12 +4,11 @@
         "tslint:latest"
     ],
     "rules": {
-        "indent": [true, "tabs", 2],
-        "quotemark": false,
-        "member-access": false,
-        "max-classes-per-file": false,
         "curly": false,
-        "object-literal-sort-keys": false,
-        "no-console": false
+        "indent": [true, "spaces", 4],
+        "max-classes-per-file": false,
+        "member-access": false,
+        "no-implicit-dependencies": false,
+        "object-literal-sort-keys": false
     }
 }
