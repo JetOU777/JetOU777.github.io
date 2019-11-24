@@ -1,6 +1,8 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 
+const BYE_REGEX = /^Bye #\d+$/;
+
 /**
  * Compatibilizes the Smogon bracketmaker's output to work with
  * IFM's bracketmaker
@@ -18,10 +20,10 @@ export class PlayerlistCompatibilizer extends React.Component<{}, {
         for (const players of playerlist.split("\n").map((el) => el.split(/ vs.? /gi))) {
             if (players.length !== 2) continue;
             const [p1, p2] = players;
-            if (!/^Bye #\d+$/.test(p1)) {
+            if (!BYE_REGEX.test(p1)) {
                 compatibilized.push(p1);
             }
-            if (!/^Bye #\d+$/.test(p2)) {
+            if (!BYE_REGEX.test(p2)) {
                 compatibilized.push(p2);
             }
         }

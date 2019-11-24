@@ -1,6 +1,8 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 
+const BYE_REGEX = /^Bye(\s?\d+)?$/i;
+
 /** round -> points */
 const SMOGON_TOUR_POINTS: {[k: number]: number} = {
     0: 0,
@@ -38,11 +40,11 @@ export class SmogonTourPointsCalculator extends React.Component<{}, {
     getMatchups(players: Array<[[string, string], [string, string]]>) {
         const matchups = new Map<string, string[]>();
         for (const [[p1ID], [p2ID]] of players) {
-            if (!/^Bye(\s?\d+)?$/i.test(p1ID)) {
+            if (!BYE_REGEX.test(p1ID)) {
                 const p1Matchups = matchups.get(p1ID);
                 matchups.set(p1ID, (p1Matchups || []).concat(p2ID));
             }
-            if (!/^Bye(\s?\d+)?$/i.test(p2ID)) {
+            if (!BYE_REGEX.test(p2ID)) {
                 const p2Matchups = matchups.get(p2ID);
                 matchups.set(p2ID, (p2Matchups || []).concat(p1ID));
             }
@@ -60,7 +62,7 @@ export class SmogonTourPointsCalculator extends React.Component<{}, {
             return acc;
         }, {});
         for (const [playerID, mus] of matchups.entries()) {
-            const byeMatchups = mus.filter((mu) => /^Bye(\s?\d+)?$/i.test(mu));
+            const byeMatchups = mus.filter((mu) => BYE_REGEX.test(mu));
             const point = SMOGON_TOUR_POINTS[byeMatchups.length + 1 === mus.length ? 0 : mus.length - 1];
             points[point] = (points[point] || []).concat(flatPlayers[playerID]);
         }

@@ -1,6 +1,8 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 
+const BYE_REGEX = /^Bye(\s?\d+)?$/i;
+
 export class PlayerlistDuplicatesFinder extends React.Component<{}, {
     /** player -> occurences  */
     duplicates: {[player: string]: number};
@@ -15,10 +17,10 @@ export class PlayerlistDuplicatesFinder extends React.Component<{}, {
         for (const matchup of playerlist.split("\n").map((el) => el.split(/ vs.? /gi))) {
             if (matchup.length !== 2) continue;
             const [p1, p2] = matchup;
-            if (!/^Bye(\s?\d+)?$/.test(p1)) {
+            if (!BYE_REGEX.test(p1)) {
                 players.push(p1);
             }
-            if (!/^Bye(\s?\d+)?$/.test(p2)) {
+            if (!BYE_REGEX.test(p2)) {
                 players.push(p2);
             }
         }
