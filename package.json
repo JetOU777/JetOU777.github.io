@@ -6,7 +6,7 @@
     "prebuild": "rm -rf dist/",
     "build": "tsc && parcel build --no-source-maps --public-url . public/*",
     "lint": "tslint --project .",
-    "test": "jest",
+    "test": "jest --verbose",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d dist"
   },

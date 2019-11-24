@@ -95,7 +95,10 @@ export class SmogonTourPointsCalculator extends React.Component<{}, {
     }
 }
 
-ReactDOM.render(
-    <SmogonTourPointsCalculator />,
-    document.getElementById("project"),
-);
+// @ts-ignore
+if (process.title === "browser") {
+    ReactDOM.render(
+        <SmogonTourPointsCalculator />,
+        document.getElementById("project"),
+    );
+}

@@ -42,7 +42,7 @@ export class PlayerlistDuplicatesFinder extends React.Component<{}, {
             })
             .reduce<string>((accumulator, [player, occurence]) => {
                 if (occurence > 1) {
-                    accumulator +=  `${player} signed up ${occurence} times.\n`;
+                    accumulator +=  `${player} signed up ${occurence} time(s).\n`;
                 }
                 return accumulator;
             }, "");
@@ -69,7 +69,10 @@ export class PlayerlistDuplicatesFinder extends React.Component<{}, {
     }
 }
 
-ReactDOM.render(
-    <PlayerlistDuplicatesFinder />,
-    document.getElementById("project"),
-);
+// @ts-ignore
+if (process.title === "browser") {
+    ReactDOM.render(
+        <PlayerlistDuplicatesFinder />,
+        document.getElementById("project"),
+    );
+}

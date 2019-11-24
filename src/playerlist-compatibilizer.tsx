@@ -51,7 +51,10 @@ export class PlayerlistCompatibilizer extends React.Component<{}, {
     }
 }
 
-ReactDOM.render(
-    <PlayerlistCompatibilizer/>,
-    document.getElementById("project"),
-);
+// @ts-ignore
+if (process.title === "browser") {
+    ReactDOM.render(
+        <PlayerlistCompatibilizer/>,
+        document.getElementById("project"),
+    );
+}
