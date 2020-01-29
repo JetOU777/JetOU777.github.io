@@ -76,7 +76,7 @@ export class SmogonTourPointsCalculator extends React.Component<{}, {
     }
     render() {
         return (
-            <div className="stour-points-calc">
+            <React.Fragment>
                 <textarea onChange={(e) => {
                     this.setState({
                         playerlist: e.target.value,
@@ -90,7 +90,7 @@ export class SmogonTourPointsCalculator extends React.Component<{}, {
                 </button>
                 <textarea value={this.formatPoints(this.state.points)} placeholder="Points will be here" readOnly>
                 </textarea>
-            </div>
+            </React.Fragment>
         );
     }
 }
@@ -99,6 +99,6 @@ export class SmogonTourPointsCalculator extends React.Component<{}, {
 if (process.title === "browser") {
     ReactDOM.render(
         <SmogonTourPointsCalculator />,
-        document.getElementById("project"),
+        document.getElementById("stour-points-calc"),
     );
 }

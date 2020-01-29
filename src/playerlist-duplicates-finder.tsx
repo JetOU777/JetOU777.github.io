@@ -49,7 +49,7 @@ export class PlayerlistDuplicatesFinder extends React.Component<{}, {
     }
     render() {
         return (
-            <div className="playerlist-duplicates">
+            <React.Fragment>
                 <textarea onChange={(e) => {
                     this.setState({
                         playerlist: e.target.value,
@@ -64,7 +64,7 @@ export class PlayerlistDuplicatesFinder extends React.Component<{}, {
                 <textarea value={this.formatDuplicates(this.state.duplicates)}
                     placeholder="Duplicate players will be here" readOnly>
                 </textarea>
-            </div>
+            </React.Fragment>
         );
     }
 }
@@ -73,6 +73,6 @@ export class PlayerlistDuplicatesFinder extends React.Component<{}, {
 if (process.title === "browser") {
     ReactDOM.render(
         <PlayerlistDuplicatesFinder />,
-        document.getElementById("project"),
+        document.getElementById("playerlist-duplicates"),
     );
 }

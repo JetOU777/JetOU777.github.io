@@ -4,30 +4,30 @@
 	font-family: monospace;
 }
 
-.playerlist-compatibilizer textarea {
+#playerlist-compatibilizer textarea {
 	width: 100%;
 	height: 40vh;
 }
 
-.playerlist-compatibilizer button {
+#playerlist-compatibilizer button {
 	width: 100%;
 }
 
-.playerlist-duplicates textarea {
-	width: 100%;
-	height: 40vh;
-}
-
-.playerlist-duplicates button {
-	width: 100%;
-}
-
-.stour-points-calc textarea {
+#playerlist-duplicates textarea {
 	width: 100%;
 	height: 40vh;
 }
 
-.stour-points-calc button {
+#playerlist-duplicates button {
+	width: 100%;
+}
+
+#stour-points-calc textarea {
+	width: 100%;
+	height: 40vh;
+}
+
+#stour-points-calc button {
 	width: 100%;
 }
 

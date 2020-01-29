@@ -31,7 +31,7 @@ export class PlayerlistCompatibilizer extends React.Component<{}, {
     }
     render() {
         return (
-            <div className="playerlist-compatibilizer">
+            <React.Fragment>
                 <textarea onChange={(e) => {
                     this.setState({
                         playerlist: e.target.value,
@@ -46,7 +46,7 @@ export class PlayerlistCompatibilizer extends React.Component<{}, {
                 <textarea value={this.state.compatibilized.join("\n")}
                     placeholder="Compatibilized output will be here" readOnly>
                 </textarea>
-            </div>
+            </React.Fragment>
         );
     }
 }
@@ -55,6 +55,6 @@ export class PlayerlistCompatibilizer extends React.Component<{}, {
 if (process.title === "browser") {
     ReactDOM.render(
         <PlayerlistCompatibilizer/>,
-        document.getElementById("project"),
+        document.getElementById("playerlist-compatibilizer"),
     );
 }
