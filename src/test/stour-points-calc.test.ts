@@ -1,6 +1,6 @@
 import { SmogonTourPointsCalculator } from "../stour-points-calc";
 
-const SMOGON_TOUR_POINTS_CALCULATOR = new SmogonTourPointsCalculator({});
+const calc = new SmogonTourPointsCalculator({});
 
 const BYE_REGEX = /^Bye(\s?\d+)?$/i;
 
@@ -38,11 +38,11 @@ const PLAYERLIST: Array<[[string, string], [string, string]]> = [
 describe("Smogon Tour Points Calculator", () => {
     describe("Matchup finder", () => {
         it("should include the correct matchups", () => {
-            const players = SMOGON_TOUR_POINTS_CALCULATOR.getMatchups(PLAYERLIST);
+            const players = calc.getMatchups(PLAYERLIST);
             expect(players.get("baz")).toEqual(["bye", "foo"]);
         });
         it("keys should not include byes", () => {
-            const players = SMOGON_TOUR_POINTS_CALCULATOR.getMatchups(PLAYERLIST);
+            const players = calc.getMatchups(PLAYERLIST);
             for (const playerID of players.keys()) {
                 expect(playerID).not.toMatch(/^bye(\d+)?$/);
             }
@@ -50,14 +50,14 @@ describe("Smogon Tour Points Calculator", () => {
     });
     describe("Calculator", () => {
         it("should calculate points correctly", () => {
-            const points = SMOGON_TOUR_POINTS_CALCULATOR.calculatePoints(PLAYERLIST);
+            const points = calc.calculatePoints(PLAYERLIST);
             expect(points).toEqual({
                 0: ["Bar", "Baz", "Qux"],
                 2: ["Foo"],
             });
         });
         it("should not include byes", () => {
-            const points = SMOGON_TOUR_POINTS_CALCULATOR.calculatePoints(PLAYERLIST);
+            const points = calc.calculatePoints(PLAYERLIST);
             for (const players of Object.values(points)) {
                 players.forEach((player) => {
                     expect(BYE_REGEX.test(player)).toBeFalsy();
@@ -65,7 +65,7 @@ describe("Smogon Tour Points Calculator", () => {
             }
         });
         it("should return names not IDs", () => {
-            const points = SMOGON_TOUR_POINTS_CALCULATOR.calculatePoints(PLAYERLIST);
+            const points = calc.calculatePoints(PLAYERLIST);
             for (const players of Object.values(points)) {
                 players.forEach((player) => {
                     expect(player === player.toLowerCase()).toBeFalsy();
