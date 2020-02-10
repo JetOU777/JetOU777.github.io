@@ -2,7 +2,7 @@ import { IMatchup, PlayerlistManipulator } from "../playerlist-manipulator";
 
 const manipulator = new PlayerlistManipulator({});
 
-const RAW_PLAYERLIST = `[B]foo[/B] vs bar\nbaz vs [b]qux\nquux[/b] vs quuz\ncorge vs grault\ngarply vs Bye 1`;
+const RAW_PLAYERLIST = `[user=1][B]foo[/B][/user] vs [USER=1]bar[/USER]\nbaz vs [b]qux\nquux[/b] vs quuz\ncorge vs grault\ngarply vs Bye 1`;
 
 const MATCHUPS: IMatchup[] = [
     {
@@ -41,6 +41,14 @@ describe("Playerlist Manipulator", () => {
         it("should remove uncapitalized bold BBCode from players", () => {
             const matchups = manipulator.parsePlayerlist(RAW_PLAYERLIST);
             expect(matchups[1].p2).toEqual("qux");
+        });
+        it("should remove user BBCode from players", () => {
+            const matchups = manipulator.parsePlayerlist(RAW_PLAYERLIST);
+            expect(matchups[0].p1).toEqual("foo");
+        });
+        it("should remove uncapitalized user BBCode from players", () => {
+            const matchups = manipulator.parsePlayerlist(RAW_PLAYERLIST);
+            expect(matchups[0].p2).toEqual("bar");
         });
         describe("Wins/Losses", () => {
             it("should handle bold on the same line", () => {

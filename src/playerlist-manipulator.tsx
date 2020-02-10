@@ -8,6 +8,11 @@ const BOLD_REGEX = {
     CLOSE: /\[\/B\]/i,
 };
 
+const USER_REGEX = {
+    OPEN: /\[USER=\d+\]/i,
+    CLOSE: /\[\/USER\]/i,
+};
+
 const camelCaseToTitle = (text: string) => {
     const result = text.replace(/([A-Z])/g, " $1");
     return result.charAt(0).toUpperCase() + result.slice(1);
@@ -33,12 +38,11 @@ export class PlayerlistManipulator extends React.Component<{}, {
     };
 
     parsePlayerlist(rawPlayerlist: string) {
-        const removeBold = (player: string) => player.replace(BOLD_REGEX.OPEN, "").replace(BOLD_REGEX.CLOSE, "");
         const matchups: IMatchup[] = [];
         for (const rawMatchup of rawPlayerlist.split("\n").map((el) => el.split(/ vs\.? /gi))) {
             if (rawMatchup.length !== 2) continue;
             const [p1, p2] = rawMatchup;
-            const matchup: IMatchup = {p1: removeBold(p1), p2: removeBold(p2), result: "unplayed"};
+            const matchup: IMatchup = {p1: this.removeBBCode(p1), p2: this.removeBBCode(p2), result: "unplayed"};
             if (p1.match(BYE_REGEX) || p2.match(BYE_REGEX)) {
                 matchup.result = "bye";
             } else if (p2.match(BOLD_REGEX.OPEN)) {
@@ -96,7 +100,13 @@ export class PlayerlistManipulator extends React.Component<{}, {
         }
         return unplayed;
     }
-
+    removeBBCode(player: string) {
+        return player
+            .replace(BOLD_REGEX.OPEN, "")
+            .replace(BOLD_REGEX.CLOSE, "")
+            .replace(USER_REGEX.OPEN, "")
+            .replace(USER_REGEX.CLOSE, "");
+    }
     resetPlayerlist = () => {
         this.setState({
             mode: "editor",
