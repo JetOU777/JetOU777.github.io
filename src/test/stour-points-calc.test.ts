@@ -41,7 +41,7 @@ describe("Smogon Tour Points Calculator", () => {
             const players = calc.getMatchups(PLAYERLIST);
             expect(players.get("baz")).toEqual(["bye", "foo"]);
         });
-        it("keys should not include byes", () => {
+        it("should not include byes in the keys", () => {
             const players = calc.getMatchups(PLAYERLIST);
             for (const playerID of players.keys()) {
                 expect(playerID).not.toMatch(/^bye(\d+)?$/);

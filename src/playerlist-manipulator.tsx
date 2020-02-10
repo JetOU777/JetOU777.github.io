@@ -4,8 +4,8 @@ import * as ReactDOM from "react-dom";
 const BYE_REGEX = /^Bye(\s?\d+)?$/i;
 
 const BOLD_REGEX = {
-    OPEN: /\[B\]/,
-    CLOSE: /\[\/B\]/,
+    OPEN: /\[B\]/i,
+    CLOSE: /\[\/B\]/i,
 };
 
 const camelCaseToTitle = (text: string) => {
