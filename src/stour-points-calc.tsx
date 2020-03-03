@@ -17,12 +17,11 @@ const SMOGON_TOUR_POINTS: {[k: number]: number} = {
 };
 
 export class SmogonTourPointsCalculator extends React.Component<{}, {
-    /** points -> players */
-    points: {[points: string]: string[]};
+    points: string;
     playerlist: string,
 }> {
     state = {
-        points: {},
+        points: "",
         playerlist: "",
     };
     parsePlayerlist(playerlist: string) {
@@ -68,10 +67,9 @@ export class SmogonTourPointsCalculator extends React.Component<{}, {
         }
         return points;
     }
-    formatPoints(points: {[points: string]: string[]}) {
+    formatPoints(points: {[points: string]: string[]}, showPoints = true) {
         return (Object.entries(points) as any as Array<[number, string[]]>).map(([point, players]) => {
-            let buf = `${point} point(s)\n`;
-            return buf += players.join(", ") + "\n";
+           return (showPoints ? point + " point(s)\n" : "") + players.join(", ") + (showPoints ? "\n" : "");
         }).join("\n");
     }
     render() {
@@ -84,11 +82,16 @@ export class SmogonTourPointsCalculator extends React.Component<{}, {
                 }}>
                 </textarea>
                 <button onClick={() => this.setState({
-                    points: this.calculatePoints(this.parsePlayerlist(this.state.playerlist)),
+                    points: this.formatPoints(this.calculatePoints(this.parsePlayerlist(this.state.playerlist)), true),
                 })}>
-                    Calculate Points
+                    Calculate Points (show point numbers)
                 </button>
-                <textarea value={this.formatPoints(this.state.points)} placeholder="Points will be here" readOnly>
+                <button onClick={() => this.setState({
+                    points: this.formatPoints(this.calculatePoints(this.parsePlayerlist(this.state.playerlist)), false),
+                })}>
+                    Calculate Points (don't show points numbers)
+                </button>
+                <textarea value={this.state.points} placeholder="Points will be here" readOnly>
                 </textarea>
             </React.Fragment>
         );
