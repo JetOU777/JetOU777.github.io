@@ -112,16 +112,18 @@ export class PlayerlistManipulator extends React.Component<{}, {
                 {
                     (["getWinners", "getLosers", "getByeWins", "getUnplayedGames"] as const).map((funcName, i) => {
                         return <button key={i} className="sml" onClick={() => {
+                            const parsedPlayerlist = this.parsePlayerlist(this.state.rawPlayerlist);
                             return this.setState({
-                                manipulatedPlayerlist: this[funcName](this.parsePlayerlist(this.state.rawPlayerlist)).join("\n")
+                                manipulatedPlayerlist: this[funcName](parsedPlayerlist).join("\n"),
                             });
-                        }}>{camelCaseToTitle(funcName)}</button>
+                        }}>{camelCaseToTitle(funcName)}</button>;
                     })
                 }
-                <textarea value={this.state.manipulatedPlayerlist} placeholder="The manipulated output will be here..." readOnly>
+                <textarea value={this.state.manipulatedPlayerlist}
+                    placeholder="The manipulated output will be here..." readOnly>
                 </textarea>
             </React.Fragment>
-        )
+        );
     }
 }
 
