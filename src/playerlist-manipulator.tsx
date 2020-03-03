@@ -26,15 +26,11 @@ export interface IMatchup {
 
 export class PlayerlistManipulator extends React.Component<{}, {
     rawPlayerlist: string,
-    matchups: IMatchup[] | undefined,
-    manipulatedPlayerlist: string | undefined;
-    mode: "mainpulator" | "editor",
+    manipulatedPlayerlist: string,
 }> {
     state = {
         rawPlayerlist: "",
-        matchups: [] as IMatchup[],
-        manipulatedPlayerlist: undefined,
-        mode: "editor" as "mainpulator" | "editor",
+        manipulatedPlayerlist: "",
     };
 
     parsePlayerlist(rawPlayerlist: string) {
@@ -100,6 +96,7 @@ export class PlayerlistManipulator extends React.Component<{}, {
         }
         return unplayed;
     }
+
     removeBBCode(player: string) {
         return player
             .replace(BOLD_REGEX.OPEN, "")
@@ -107,42 +104,24 @@ export class PlayerlistManipulator extends React.Component<{}, {
             .replace(USER_REGEX.OPEN, "")
             .replace(USER_REGEX.CLOSE, "");
     }
-    resetPlayerlist = () => {
-        this.setState({
-            mode: "editor",
-            manipulatedPlayerlist: undefined,
-            matchups: undefined,
-        });
-    }
 
     render() {
         return (
             <React.Fragment>
-                <textarea readOnly={this.state.mode === "mainpulator"}
-                    value={this.state.manipulatedPlayerlist ?? this.state.rawPlayerlist} onChange={(e) => {
-                    this.setState({
-                        rawPlayerlist: e.target.value,
-                    });
-                }}></textarea>
-                {this.state.mode === "editor"
-                    ?
-                        <button className="lrg" onClick={() => this.setState({
-                            mode: "mainpulator",
-                            matchups: this.parsePlayerlist(this.state.rawPlayerlist),
-                        })}>
-                            Mainpulate
-                        </button>
-                    :
-                        (["getWinners", "getLosers", "getByeWins", "getUnplayedGames"] as const).map((funcName, i) => {
-                            return <button className="sml" key={i} onClick={() => this.setState({
-                                manipulatedPlayerlist: this[funcName](this.state.matchups).join("\n"),
-                        })}>{camelCaseToTitle(funcName)}</button>;
-                        }).concat(
-                            <br />, <button className="lrg" onClick={this.resetPlayerlist}>Reset Playerlist</button>,
-                        )
+                <textarea onChange={(e) => this.setState({ rawPlayerlist: e.target.value })}></textarea>
+                {
+                    (["getWinners", "getLosers", "getByeWins", "getUnplayedGames"] as const).map((funcName, i) => {
+                        return <button key={i} className="sml" onClick={() => {
+                            return this.setState({
+                                manipulatedPlayerlist: this[funcName](this.parsePlayerlist(this.state.rawPlayerlist)).join("\n")
+                            });
+                        }}>{camelCaseToTitle(funcName)}</button>
+                    })
                 }
+                <textarea value={this.state.manipulatedPlayerlist} placeholder="The manipulated output will be here..." readOnly>
+                </textarea>
             </React.Fragment>
-        );
+        )
     }
 }
 
