@@ -2,6 +2,7 @@
   "name": "hosting-tools",
   "version": "1.0.0",
   "description": "A collection of scripts that helps with Smogon tournament hosting",
+  "private": true,
   "scripts": {
     "prebuild": "rm -rf dist/",
     "build": "tsc && parcel build --no-source-maps --public-url . public/*",
@@ -20,10 +21,6 @@
     "url": "https://github.com/TheJetOU/hosting-toools/issues"
   },
   "homepage": "https://github.com/TheJetOU/hosting-tools#readme",
-  "dependencies": {
-    "react": "^16.12.0",
-    "react-dom": "^16.12.0"
-  },
   "devDependencies": {
     "@types/jest": "^24.9.1",
     "@types/react": "^16.9.19",

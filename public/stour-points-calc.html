@@ -9,7 +9,13 @@
 </head>
 <body>
 	<h1>Calculate Smogon Tour points</h1>
-	<div id="stour-points-calc"></div>
+	<div id="stour-points-calc">
+        <textarea id="playerlist"></textarea>
+        <button id="calcpoints-showpointsnum">Calculate Points (show point numbers)</button>
+        <button id="calcpoints-nopointsnum">Calculate Points (don't show points numbers)</button>
+        <textarea id="points" placeholder="Points will be here" readonly>
+        </textarea>
+    </div>
 	<script src="js/stour-points-calc.js"></script>
 </body>
 </html>

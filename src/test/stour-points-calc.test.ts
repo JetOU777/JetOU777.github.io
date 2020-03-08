@@ -1,6 +1,4 @@
-import { SmogonTourPointsCalculator } from "../stour-points-calc";
-
-const calc = new SmogonTourPointsCalculator({});
+import { calculatePoints, getMatchups } from "../stour-points-calc";
 
 const BYE_REGEX = /^Bye(\s?\d+)?$/i;
 
@@ -38,11 +36,11 @@ const PLAYERLIST: Array<[[string, string], [string, string]]> = [
 describe("Smogon Tour Points Calculator", () => {
     describe("Matchup finder", () => {
         it("should include the correct matchups", () => {
-            const players = calc.getMatchups(PLAYERLIST);
+            const players = getMatchups(PLAYERLIST);
             expect(players.get("baz")).toEqual(["bye", "foo"]);
         });
         it("should not include byes in the keys", () => {
-            const players = calc.getMatchups(PLAYERLIST);
+            const players = getMatchups(PLAYERLIST);
             for (const playerID of players.keys()) {
                 expect(playerID).not.toMatch(/^bye(\d+)?$/);
             }
@@ -50,14 +48,14 @@ describe("Smogon Tour Points Calculator", () => {
     });
     describe("Calculator", () => {
         it("should calculate points correctly", () => {
-            const points = calc.calculatePoints(PLAYERLIST);
+            const points = calculatePoints(PLAYERLIST);
             expect(points).toEqual({
                 0: ["Bar", "Baz", "Qux"],
                 2: ["Foo"],
             });
         });
         it("should not include byes", () => {
-            const points = calc.calculatePoints(PLAYERLIST);
+            const points = calculatePoints(PLAYERLIST);
             for (const players of Object.values(points)) {
                 players.forEach((player) => {
                     expect(BYE_REGEX.test(player)).toBeFalsy();
@@ -65,7 +63,7 @@ describe("Smogon Tour Points Calculator", () => {
             }
         });
         it("should return names not IDs", () => {
-            const points = calc.calculatePoints(PLAYERLIST);
+            const points = calculatePoints(PLAYERLIST);
             for (const players of Object.values(points)) {
                 players.forEach((player) => {
                     expect(player === player.toLowerCase()).toBeFalsy();
