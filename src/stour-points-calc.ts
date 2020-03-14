@@ -57,7 +57,7 @@ export function calculatePoints(players: Array<[[string, string], [string, strin
 }
 export function formatPoints(points: {[points: string]: string[]}, showPoints = true) {
     return (Object.entries(points) as any as Array<[number, string[]]>).map(([point, players]) => {
-       return (showPoints ? point + " point(s)\n" : "") + players.join(", ") + (showPoints ? "\n" : "");
+       return (showPoints ? point + " point(s)\n" : "") + players.join(", ") + "\n";
     }).join("\n");
 }
 
