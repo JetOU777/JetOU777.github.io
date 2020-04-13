@@ -1,6 +1,6 @@
 import { getByeWins, getLosers, getUnplayedGames, getWinners, IMatchup, parsePlayerlist } from "../playerlist-manipulator";
 
-const RAW_PLAYERLIST = `[user=1][B]foo[/B][/user] vs [USER=1]bar[/USER]\nbaz vs [b]qux\nquux[/b] vs quuz\ncorge vs grault\ngarply vs Bye 1`;
+const RAW_PLAYERLIST = `[user=1][B]foo[/B][/user] \u202Fvs\u202F [USER=1]bar[/USER]\nbaz vs [b]qux\nquux[/b] vs quuz\ncorge vs grault\ngarply vs Bye 1`;
 
 const MATCHUPS: IMatchup[] = [
     {
@@ -46,6 +46,11 @@ describe("Playerlist Manipulator", () => {
         });
         it("should remove uncapitalized user BBCode from players", () => {
             const matchups = parsePlayerlist(RAW_PLAYERLIST);
+            expect(matchups[0].p2).toEqual("bar");
+        });
+        it("should support splitting on U+202F", () => {
+            const matchups = parsePlayerlist(RAW_PLAYERLIST);
+            expect(matchups[0].p1).toEqual("foo");
             expect(matchups[0].p2).toEqual("bar");
         });
         describe("Wins/Losses", () => {

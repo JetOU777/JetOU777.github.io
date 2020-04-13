@@ -1,4 +1,5 @@
 const BYE_REGEX = /^Bye(\s?\d+)?$/i;
+const VS_REGEX = /\s\u202F?vs\.?\u202F?\s/i;
 
 const BOLD_REGEX = {
     OPEN: /\[B\]/i,
@@ -8,16 +9,6 @@ const BOLD_REGEX = {
 const USER_REGEX = {
     OPEN: /\[USER=\d+\]/i,
     CLOSE: /\[\/USER\]/i,
-};
-
-const UNDERLINE_REGEX = {
-    OPEN: /\[U\]/i,
-    CLOSE: /\[\/U\]/i,
-};
-
-const camelCaseToTitle = (text: string) => {
-    const result = text.replace(/([A-Z])/g, " $1");
-    return result.charAt(0).toUpperCase() + result.slice(1);
 };
 
 export interface IMatchup {
@@ -36,7 +27,7 @@ function removeBBCode(player: string) {
 
 export function parsePlayerlist(rawPlayerlist: string) {
     const matchups: IMatchup[] = [];
-    for (const rawMatchup of rawPlayerlist.split("\n").map((el) => el.split(/ vs\.? /gi))) {
+    for (const rawMatchup of rawPlayerlist.split("\n").map((el) => el.split(VS_REGEX))) {
         if (rawMatchup.length !== 2) continue;
         const [p1, p2] = rawMatchup;
         const matchup: IMatchup = {p1: removeBBCode(p1), p2: removeBBCode(p2), result: "unplayed"};

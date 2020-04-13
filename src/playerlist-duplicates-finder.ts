@@ -1,8 +1,9 @@
 const BYE_REGEX = /^Bye(\s?\d+)?$/i;
+const VS_REGEX = /\s\u202F?vs\.?\u202F?\s/i;
 
 function getPlayers(playerlist: string) {
     const players: string[] = [];
-    for (const matchup of playerlist.split("\n").map((el) => el.split(/ vs.? /gi))) {
+    for (const matchup of playerlist.split("\n").map((el) => el.split(VS_REGEX))) {
         if (matchup.length !== 2) continue;
         const [p1, p2] = matchup;
         if (!BYE_REGEX.test(p1)) {

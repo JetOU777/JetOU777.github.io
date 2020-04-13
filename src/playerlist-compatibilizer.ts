@@ -1,4 +1,5 @@
 const BYE_REGEX = /^Bye #\d+$/;
+const VS_REGEX = /\s\u202F?vs\.?\u202F?\s/i;
 
 /**
  * Compatibilizes the Smogon bracketmaker's output to work with
@@ -6,7 +7,7 @@ const BYE_REGEX = /^Bye #\d+$/;
  */
 export function compatibilize(playerlist: string) {
     const compatibilized: string[] = [];
-    for (const players of playerlist.split("\n").map((el) => el.split(/ vs.? /gi))) {
+    for (const players of playerlist.split("\n").map((el) => el.split(VS_REGEX))) {
         if (players.length !== 2) continue;
         const [p1, p2] = players;
         if (!BYE_REGEX.test(p1)) {
